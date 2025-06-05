@@ -59,6 +59,10 @@ export class SignupComponent {
   })
 
   onSubmit() {
+    if (this.signupForm.invalid) {
+      console.log('invalid form')
+      return;
+    }
     const email= this.signupForm.value.email;
     const password = this.signupForm.value.passwords?.password;
     console.log(email,password);
