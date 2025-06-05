@@ -7,17 +7,27 @@ import {debounceTime} from "rxjs";
   standalone: true,
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-  imports: [
-    FormsModule
-  ]
+  imports: [FormsModule],
 })
 export class LoginComponent {
 
   private form = viewChild.required<NgForm>('form');
-  private destroyRef = inject(DestroyRef);
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor() {
     afterNextRender(()=>{
+      const savedForm = window.localStorage.getItem('saved-login-form');
+
+      if (savedForm) {
+        const loadedForm = JSON.parse(savedForm);
+        const savedEmail = loadedForm.email;
+        setTimeout(() => {
+          this.form().controls['email'].setValue(savedEmail);
+        }, 1);
+      }
+
+
+
       const subscription = this.form().valueChanges?.pipe(debounceTime(500)).subscribe({
         next: (value)=>{
           window.localStorage.setItem('saved-login-form', JSON.stringify({email: value.email}));
