@@ -4,7 +4,7 @@
 
   <div class="control">
     <label for="email">Email</label>
-    <input id="email" type="email" name="email" [formControl]="signupForm.controls.email"/>
+    <input id="email" type="email" name="email" formControlName="email"/>
   </div>
 
   <div class="control-row">
@@ -14,7 +14,7 @@
         id="password"
         type="password"
         name="password"
-        [formControl]="signupForm.controls.password"
+        formControlName="password"
       />
     </div>
 
